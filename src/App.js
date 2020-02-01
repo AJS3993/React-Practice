@@ -1,34 +1,46 @@
 import React, {Component} from 'react';
-import MyComponent from './MyComponent';
 import './App.css';
 
+const products = [
+  {
+    name:'iPad',
+    price: 200
+  },
+  {
+    name: 'iPhone',
+    price: 650
+  }
+];
+
+localStorage.setItem('products', JSON.stringify(products));
+
 class App extends Component {
-  constructor(props) {
+  constructor(props){
     super(props);
 
     this.state = {
-      title: 'hi'
-    };
-
-    this.onClick = this.onClick.bind(this);
+      products: []
+    }
   }
 
-  onClick() {
-    this.setState({
-      title: 'aksdfj'
-    });
-  }
-  
+componentWillMount(){
+  const products = JSON.parse(localStorage.getItem('products'))
+  this.setState({products})
+}
+
   render(){
     return (
-      <div className="App">
-        <h1>{this.state.title}</h1>
-      
-        <div onClick={this.onClick}>click here</div>
-      
-        <MyComponent
-        title='im passing this from app.js to MyComponent.js'
-        />
+      <div className="App">  
+        <h1>Products Manager</h1>
+        {
+          this.state.products.map(product => {
+            return (
+              <div key={product.name}>
+                <span>{product.name}</span> | <span>{product.price}</span>
+              </div>
+            )
+          })
+        }
     </div>
     );
   }
