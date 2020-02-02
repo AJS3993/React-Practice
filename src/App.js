@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import ProductItem from './ProductItem';
 import './App.css';
 
 const products = [
@@ -24,23 +25,30 @@ class App extends Component {
   }
 
 componentWillMount(){
+  this.getProducts()
+}
+  
+  
+getProducts(){  
   const products = JSON.parse(localStorage.getItem('products'))
   this.setState({products})
 }
 
   render(){
     return (
-      <div className="App">  
-        <h1>Products Manager</h1>
-        {
-          this.state.products.map(product => {
-            return (
-              <div key={product.name}>
-                <span>{product.name}</span> | <span>{product.price}</span>
-              </div>
-            )
-          })
-        }
+      <div className="App"> 
+      <h1>Products Manager</h1>
+      {
+        this.state.products.map(product => {
+          return (
+            <ProductItem 
+              key = {product.name}
+              name = {product.name}
+              price = {product.price}
+            />
+          )
+        })
+      }
     </div>
     );
   }
