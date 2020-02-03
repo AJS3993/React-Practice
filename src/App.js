@@ -26,7 +26,7 @@ class App extends Component {
 
     this.onDelete = this.onDelete.bind(this)
     this.onAdd = this.onAdd.bind(this)
-
+    this.onEditSubmit = this.onEditSubmit.bind(this)
   }
 
 componentWillMount(){
@@ -53,6 +53,10 @@ onDelete(name){
   this.setState({ products: filteredProducts })
 }
 
+onEditSubmit (name, price){
+  const products = this.getProducts()
+}
+
   render(){
     return (
       <div className="App"> 
@@ -68,6 +72,7 @@ onDelete(name){
               name = {product.name}
               price = {product.price}
               onDelete = {this.onDelete}
+              onEditSubmit = {this.onEditSubmit}
             />
           )
         })

@@ -8,8 +8,9 @@ class ProductItem extends Component {
             isEdit: false
         }
 
-        this.onDelete = this.onDelete.bind(this)
-        this.onEdit = this.onEdit.bind(this)
+        this.onDelete = this.onDelete.bind(this);
+        this.onEdit = this.onEdit.bind(this);
+        this.onEditSubmit = this.onEdit.bind(this);
     }
 
 onDelete(){
@@ -21,6 +22,11 @@ onEdit(){
     this.setState({isEdit: true})
 }
 
+onEditSubmit(event){
+    event.preventDefault();
+    this.props.onEditSubmit(this.nameInput.value, this.priceInput.value);
+}
+
     render(){
         const {name, price}=this.props
         return(
@@ -28,11 +34,11 @@ onEdit(){
                 {
                     this.state.isEdit 
                     ?(
-                        <div>
-                            <input ref={nameInput => this.nameInput = nameInput}/>
-                            <input ref={priceInput => this.priceInput = priceInput}/>
+                        <form onSubmit={this.onEditSubmit}>
+                            <input ref={nameInput => this.nameInput = nameInput} value={name}/>
+                            <input ref={priceInput => this.priceInput = priceInput} value={price}/>
                             <button>Save</button>
-                        </div>
+                        </form>
                     )
                     :(
                         <div>
