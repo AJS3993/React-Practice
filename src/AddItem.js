@@ -10,6 +10,8 @@ class AddItem extends Component {
     onSubmit(event){
         event.preventDefault();
         this.props.onAdd(this.nameInput.value, this.priceInput.value);
+        this.nameInput.value = ''
+        this.priceInput.valut = ''
     }
 
     render(){
