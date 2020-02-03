@@ -12,7 +12,7 @@ onDelete(){
 }
 
     render(){
-        const {name, price, onDelete}=this.props
+        const {name, price}=this.props
         return(
             <div>
                 <span>{name}</span> |
