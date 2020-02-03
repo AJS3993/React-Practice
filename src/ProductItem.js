@@ -6,11 +6,11 @@ class ProductItem extends Component {
 
         this.state = {
             isEdit: false
-        }
+        };
 
         this.onDelete = this.onDelete.bind(this);
         this.onEdit = this.onEdit.bind(this);
-        this.onEditSubmit = this.onEdit.bind(this);
+        this.onEditSubmit = this.onEditSubmit.bind(this);
     }
 
 onDelete(){
@@ -19,12 +19,18 @@ onDelete(){
 }
 
 onEdit(){
-    this.setState({isEdit: true})
+    this.setState({isEdit: true});
 }
 
 onEditSubmit(event){
     event.preventDefault();
-    this.props.onEditSubmit(this.nameInput.value, this.priceInput.value);
+   
+    this.props.onEditSubmit(
+        this.nameInput.value, 
+        this.priceInput.value,
+        this.props.name);
+    
+        this.setState({isEdit: false})
 }
 
     render(){
@@ -35,8 +41,8 @@ onEditSubmit(event){
                     this.state.isEdit 
                     ?(
                         <form onSubmit={this.onEditSubmit}>
-                            <input ref={nameInput => this.nameInput = nameInput} value={name}/>
-                            <input ref={priceInput => this.priceInput = priceInput} value={price}/>
+                            <input ref={nameInput => this.nameInput = nameInput} defaultValue={name}/>
+                            <input ref={priceInput => this.priceInput = priceInput} defaultValue={price}/>
                             <button>Save</button>
                         </form>
                     )

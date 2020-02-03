@@ -29,14 +29,15 @@ class App extends Component {
     this.onEditSubmit = this.onEditSubmit.bind(this)
   }
 
-componentWillMount(){
+UNSAFE_componentWillMount(){
   const products = this.getProducts()
   this.setState({products})
 }
   
   
 getProducts(){  
-  return this.state.products
+  console.log('getProducts')
+  return this.state.products;
   }
 
 onAdd(name, price){
@@ -53,8 +54,18 @@ onDelete(name){
   this.setState({ products: filteredProducts })
 }
 
-onEditSubmit (name, price){
-  const products = this.getProducts()
+onEditSubmit (name, price, originalName){
+  console.log(name, price)
+  let products = this.getProducts();
+
+  products = products.map(product => {
+    if (product.name === originalName){
+      product.name = name;
+      product.price = price;
+    }
+    return product
+  });
+  this.setState({ products });
 }
 
   render(){
@@ -69,8 +80,7 @@ onEditSubmit (name, price){
           return (
             <ProductItem 
               key = {product.name}
-              name = {product.name}
-              price = {product.price}
+             {...product}
               onDelete = {this.onDelete}
               onEditSubmit = {this.onEditSubmit}
             />
